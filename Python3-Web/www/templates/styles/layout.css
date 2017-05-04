@@ -1,0 +1,54 @@
+#header {
+    background-color:pink;
+    color:white;
+    text-align:center;
+    margin: 0px;
+    padding:6px;
+}
+#footer {
+    background-color:deepskyblue;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+body {
+  font-family: "Helvetica","Arial",serif;
+  color: #333;
+  background-color: cornflowerblue;
+  margin: 1em 10%;
+}
+h1 {
+  color: #333;
+  background-color: transparent;
+}
+a {
+  color: #c60;
+  background-color: transparent;
+  font-weight: bold;
+  text-decoration: none;
+}
+ul {
+  padding: 0;
+}
+li {
+  float: left;
+  padding: 1em;
+  list-style: none;
+}
+img {
+	display:block;
+	clear:both;
+}
+
+a:visited {
+    color:olive;
+}
+
+acronym[title] {
+    border-bottom: 1px dotted #999;
+}
+
+acronym[title]:hover, acronym[title]:focus {
+    cursor: help
+}
