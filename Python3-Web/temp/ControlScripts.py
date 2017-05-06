@@ -62,7 +62,7 @@ async def test():
     await orm.create_pool(loop=loop, host='localhost', port=3306, user='root', password='GLGJSSY817', db='test')
 
     # 创建一位用户:
-    #new_user = User(name='bigfoot', email='114183201@qq.com', passwd='0123456789', image='about:about')
+    #new_user = User(name='liangqirong-SB', email='824829092@qq.com', passwd='0123456789', image='about:about')
     #await new_user.save()
     #r = await User.findall()
     #print(r)
@@ -70,19 +70,20 @@ async def test():
     # [{'created_at': 1490792489.37803, 'password': '123456', 'id': '001490793039689bb93e162417848c2823adf1909195208000', 'email': 'imsytu@163.com', 'admin': 0, 'image': 'about:about', 'name': 'sytu'}]
 
     # 修改一位用户:
-    update_user = User(name='梁启荣', email='114182222221@163.com', passwd='dhdhdhdh', image='about:xxxxxx', id='001493795043901eff6c32a8f7544218665cad2e7f6408500', admin='0', created_at='1490792489.37803') # 需要传入用户的id(主键), admin, created_at, 很不方便也许需要重构
+    update_user = User(name='梁启荣', email='xiaocanyue@163.com', passwd='dhdhdhdh', image='about:xxxxxx', id='001493479176167811be24babf54d178d485aa5cb86773a00', admin='0', created_at='1490792489.37803') # 需要传入用户的id(主键), admin, created_at, 很不方便也许需要重构
     await update_user.update()
     r = await User.findall()
-    printf(r)
+    #print(r)
     # => 
     # [{'admin': 0, 'password': '99998', 'name': 'sytu', 'created_at': 1490792489.37803, 'id': '001490793039689bb93e162417848c2823adf1909195208000', 'image': 'about:xxxxxx', 'email': 'imsytu@163.com'}]
 
     # attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName, ', '.join(map(lambda f: '`%s`=?' % (mappings.get(f).name or f), fields)), primaryKey)
 
     # 删除一位用户
-    remove_user = User(name='sytu', email='imsytu@163.com', password='9999', image='about:about', id='00149406394339574acb2ea6cba4ac4b12ea01d6f57fbf800') # 需要传入用户的id(主键)
-    await remove_user.remove()
-    r = await User.findall()
+    #remove_user = User(name='sytu', email='imsytu@163.com', password='9999', image='about:about', id='0014934723770235a84afeb59844436900d952e68c10f3900') # 需要传入用户的id(主键)
+    #await remove_user.remove()
+    #r = await User.findall()
+    printf(r)
     # =>
     # []
 

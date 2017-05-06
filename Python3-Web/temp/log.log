@@ -1,0 +1,30 @@
+File "e:/Programer/WorkingFolder/Python3-Web/www/createdata.py", line 16, in <module>
+    loop.run_until_complete(test())
+  File "C:\Users\msi001\AppData\Local\Programs\Python\Python36-32\lib\asyncio\base_events
+.py", line 466, in run_until_complete
+    return future.result()
+  
+  File "e:/Programer/WorkingFolder/Python3-Web/www/createdata.py", line 9, in test
+    yield from orm.create_pool(loop=loop, user='root', password='GLGJSSY817', db='test')
+  
+  File "e:\Programer\WorkingFolder\Python3-Web\www\orm.py", line 24, in create_pool
+    loop = loop
+  
+  File "C:\Users\msi001\AppData\Local\Programs\Python\Python36-32\lib\site-packages\aiomy
+sql\utils.py", line 61, in __iter__
+    resp = yield from self._coro
+  
+  File "C:\Users\msi001\AppData\Local\Programs\Python\Python36-32\lib\site-packages\aiomy
+sql\connection.py", line 79, in _connect
+    conn = Connection(*args, **kwargs)
+  
+  File "C:\Users\msi001\AppData\Local\Programs\Python\Python36-32\lib\site-packages\aiomy
+sql\connection.py", line 180, in __init__
+    self._encoding = charset_by_name(self._charset).encoding
+AttributeError: 'NoneType' object has no attribute 'encoding'
+Exception ignored in: <bound method Connection.__del__ of <aiomysql.connection.Connection
+ object at 0x02DB6E30>>
+Traceback (most recent call last):
+  File "C:\Users\msi001\AppData\Local\Programs\Python\Python36-32\lib\site-packages\aiomy
+sql\connection.py", line 799, in __del__
+AttributeError: 'Connection' object has no attribute '_writer'

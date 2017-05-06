@@ -6,11 +6,13 @@ import asyncio, os, json, time
 from aiohttp import web
 from jinja2 import Environment, FileSystemLoader
 
+from config import configs
 import orm
 from myweb import add_routes, add_static
+from handlers import cookie2user, COOKIE_NAME
 
-def index(request):
-    return web.Response(body=Body.encode(), content_type='text/html')
+#def index(request):
+#    return web.Response(body=Body.encode(), content_type='text/html')
 
 def init_jinja2(app, **kw):
     logging.info('init jinja2...')
@@ -27,7 +29,7 @@ def init_jinja2(app, **kw):
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
         logging.info('set jinja2 template path: %s' % path)
         env = Environment(loader=FileSystemLoader(path), **options)
-        filters = kw.get('fileters', None)
+        filters = kw.get('filters', None)
         if filters is not None:
             for name, f in filters.items():
                 env.filters[name] = f
@@ -49,7 +51,7 @@ def datetime_filter(t):
 async def init(loop):
     #app = web.Application(loop=loop)
     await orm.create_pool(loop=loop, host='127.0.0.1', port=3306, user='root', password='GLGJSSY817', db='test')
-    app = web.Application(loop=loop, middlewares=[logger_factory, response_factory])
+    app = web.Application(loop=loop, middlewares=[logger_factory, auth_factory, response_factory])
     #app.router.add_route('GET', '/', index)
     init_jinja2(app, filters=dict(datetime=datetime_filter))
     #把request交由Handlers模块处理
@@ -60,7 +62,32 @@ async def init(loop):
     logging.info('server started at http://127.0.0.1:8080...')
     return srv
 
+async def auth_factory(app, handler):
+    async def auth(request):
+        logging.info('check user: %s %s' % (request.method, request.path))
+        request.__user__ = None
+        cookie_str = request.cookies.get(COOKIE_NAME)
+        if cookie_str:
+            user = await cookie2user(cookie_str)
+            if user:
+                logging.info('set current user: %s' % user.email)
+                request.__user__ = user
+        if request.path.startswith('manage/') and (request.__user__ is None or not request.__user__.admin):
+            return web.HTTPFound('/signin')
+        return (await handler(request))
+    return auth
 
+async def data_factory(app, handler):
+    async def parse_data(request):
+        if request.method == 'POST':
+            if request.content_type.startswith('application/json'):
+                request.__data__ = await request.json()
+                logging.info('request json: %s' % str(request.__data__))
+            elif request.content_type.startswith('application/x-www-form-urlencode'):
+                request.__data__ = await request.post()
+                logging.info('request form: %s' % str(request.__data__))
+        return (await handler(request))
+    return parse_data
 #*********************************middlewares*********************************#
 
 async def logger_factory(app, handler):
@@ -107,7 +134,6 @@ async def response_factory(app, handler):
     return response
 
 #*********************************middlewares*********************************#
-
 loop = asyncio.get_event_loop()
 loop.run_until_complete(init(loop))
 loop.run_forever()

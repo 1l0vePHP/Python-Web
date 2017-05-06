@@ -52,7 +52,8 @@ try:
 except ImportError:
     pass
 
-'''configs = toDict(configs)
+configs = toDict(configs)
+'''
 print('configs.db: %s configs.session: %s' % (configs.db, configs.session))
 a = configs.db; b = configs.session
 print('configs.db.host: %s configs.session.secret: %s' % (a.host, b.secret))'''
