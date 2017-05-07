@@ -70,22 +70,32 @@ async def test():
     # [{'created_at': 1490792489.37803, 'password': '123456', 'id': '001490793039689bb93e162417848c2823adf1909195208000', 'email': 'imsytu@163.com', 'admin': 0, 'image': 'about:about', 'name': 'sytu'}]
 
     # 修改一位用户:
-    update_user = User(name='梁启荣', email='114182222221@163.com', passwd='dhdhdhdh', image='about:xxxxxx', id='001493795043901eff6c32a8f7544218665cad2e7f6408500', admin='0', created_at='1490792489.37803') # 需要传入用户的id(主键), admin, created_at, 很不方便也许需要重构
-    await update_user.update()
-    r = await User.findall()
-    printf(r)
+    #update_user = User(name='梁启荣', email='114182222221@163.com', passwd='dhdhdhdh', image='about:xxxxxx', id='001493795043901eff6c32a8f7544218665cad2e7f6408500', admin='0', created_at='1490792489.37803') # 需要传入用户的id(主键), admin, created_at, 很不方便也许需要重构
+    #await update_user.update()
+    #printf(r)
     # => 
     # [{'admin': 0, 'password': '99998', 'name': 'sytu', 'created_at': 1490792489.37803, 'id': '001490793039689bb93e162417848c2823adf1909195208000', 'image': 'about:xxxxxx', 'email': 'imsytu@163.com'}]
 
     # attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName, ', '.join(map(lambda f: '`%s`=?' % (mappings.get(f).name or f), fields)), primaryKey)
 
     # 删除一位用户
-    remove_user = User(name='sytu', email='imsytu@163.com', password='9999', image='about:about', id='00149406394339574acb2ea6cba4ac4b12ea01d6f57fbf800') # 需要传入用户的id(主键)
-    await remove_user.remove()
-    r = await User.findall()
+    #remove_user = User(name='sytu', email='imsytu@163.com', password='9999', image='about:about', id='00149406394339574acb2ea6cba4ac4b12ea01d6f57fbf800') # 需要传入用户的id(主键)
+    #await remove_user.remove()
+    #r = await User.findall()
     # =>
     # []
-
+    uid = '001494090483527f223fa4003384bc69da9c656d33d8e8500'
+    uname = 'MARESFAC'
+    uimage = 'http://www.gravatar.com/avatar/db9dd696ad73852995e891e5e0facbdc?d=mm@s=120'
+    name = ['interesting', 'excited!', 'too young', 'too simple', 'sometimes naive', 'I\'m angry!']
+    content = ['苟利国家生死以', '岂因祸福避趋之', '敢同恶鬼争高下', '不向霸王让存分','垂死病中惊坐起', '谈笑风生又一年']
+    summary= ['吼哇!', '这是坠侯滴！', '不要见得风识得雨', '跑得比其他西方媒体还快', '一句话不说也不好', '我不是新闻工作者']
+    for i, j, k in zip(name, content, summary):
+        Bname, Bsummary, Bcontent = i, j, k
+        blog = Blog(user_id=uid, user_name=uname, user_image=uimage, name=Bname, summary=Bsummary, content=Bcontent)
+        r = await blog.save()
+    r = await Blog.findall(orderBy='created_at desc')
+    printf(r)
     await orm.destroy_pool()
 
 

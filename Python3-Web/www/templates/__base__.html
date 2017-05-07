@@ -1,10 +1,27 @@
 <!DOCTYPE html>
+<!--
+{% macro pagination(url, page) %}
+    <ul class="uk-pagination">
+        {% if page.has_previous %}
+            <li><a href="{{ url }}{{ page.page_index - 1 }}"><i class="uk-icon-angle-double-left"></i></a></li>
+        {% else %}
+            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+        {% endif %}
+            <li class="uk-active"><span>{{ page.page_index }}</span></li>
+        {% if page.has_next %}
+            <li><a href="{{ url }}{{ page.page_index + 1 }}"><i class="uk-icon-angle-double-right"></i></a></li>
+        {% else %}
+            <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+        {% endif %}
+    </ul>
+{% endmacro %}
+-->
 <html>
     <head>
         <meta charset="utf-8" />
         {% block meta %}<!-- block meta -->{% endblock %}
         <title>{% block title %} ? {% endblock %} - N00B's Website</title>
-        <link rel="shortcut icon" href="/static/images/sp32.ico">
+        <link rel="shortcut icon" href="/static/images/shuttle.ico">
         <link rel="stylesheet" href="/static/styles/uikit.min.css"/>
         <link rel="stylesheet" href="/static/styles/uikit.gradient.min.css"/>
         <link rel="stylesheet" href="/static/styles/awesome.css" />
@@ -61,9 +78,9 @@
                         <a target="_blank" href="#" class="uk-icon-button uk-icon-linkedin-square"></a>
                         <a target="_blank" href="#" class="uk-icon-button uk-icon-twitter"></a>
                     </p>
-                    <p>Powerd by <a href="#">Awesome Python Webapp</a>. Copyright &copy; 2017. [<a href="/manage" target="_blank">Manage</a>]</p>
+                    <p>Powerd by <a href="#">Awesome Python Webapp</a>. Copyright &copy; 2017. [<a href="/manage/" target="_blank">Manage</a>]</p>
                     <p><a href="http://www.python.org/" target="_blank">www.python.org</a>. All rights reserved. </p>
-                    <a target="_blank" href="#"><i class="uk-icon-html5" style="font-size:94px; color: #f49332;"></i></a>
+                    <a target="_blank" href="http://www.w3.org/TR/html5/"><i class="uk-icon-html5" style="font-size:94px; color: #f49332;"></i></a>
                 </div>
             </div>
         </div>
